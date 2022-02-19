@@ -7,6 +7,11 @@ use JMS\Serializer\Annotation as Serializer;
 class Movie
 {
     /**
+     * Serializer\Type("integer")
+     */
+    private int $id;
+
+    /**
      * @Serializer\Type("string")
      * @Serializer\Groups({"Default", "search"})
      */
@@ -26,6 +31,18 @@ class Movie
      * @Serializer\Type("string")
      */
     private string $overview;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function getTitle(): string
     {

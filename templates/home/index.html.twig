@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+    <div class="container container-fluid mt-3">
+        <div class="row">
+            <div class="col-10">
+                <h1>Welcome on We Movies</h1>
+            </div>
+            <div class="col-2 position-relative bottom-0">
+                {{ form_start(searchForm) }}
+                    {{ form_widget(searchForm.search) }}
+                {{ form_end(searchForm) }}
+            </div>
+        </div>
+        <div class="row">
+            <p>Video reader for {{ highlightedMovie.title}}</p>
+        </div>
+        <div class="row">
+            <div id="genres" class="col-2">
+                {{ form_start(genreForm) }}
+                    {% for genre in genreForm.genres %}
+                        <div>{{ form_widget(genre) }} {{ form_label(genre) }}</div>
+                    {% endfor %}
+                {{ form_end(genreForm) }}
+            </div>
+            <div id="movies" class="col-10">
+                {% for movie in movies %}
+                    <div class>
+                        <h4>{{ movie.title }} <span class="fs-6">{{ movie.voteAverage }}/10 ({{ movie.voteCount }} votes)</span></h4>
+                        <p>{{ movie.overview }}</p>
+                        <div class="text-end">
+                            <a class="btn btn-primary" data-bs-movie-title="{{ movie.title }}" data-bs-path="{{ path('api_movie_detail', {movieId: movie.id}) }}" data-bs-toggle="modal" data-bs-target="#movieModal" href="#" role="button">
+                                Détails
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'modals/_movie_details.html.twig' %}
+{% endblock %}
